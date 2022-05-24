@@ -30,9 +30,8 @@ public class Product extends BaseTimeEntity {
      *
      */
 //
-//    @OneToMany
-//    @JoinColumn(name = "product_image_id")
-//    private List<ProductImage> productImages = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<ProductImage> productImages = new ArrayList<>();
 
     public void addCategory(Category category){
         this.category = category;
