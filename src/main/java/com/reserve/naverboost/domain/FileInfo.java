@@ -27,8 +27,6 @@ public class FileInfo {
     @Column(name="delete_flag")
     private boolean deleteFlag;
 
-    @OneToMany(mappedBy = "fileInfo")
-    private List<ProductImage> productImages = new ArrayList<>();
 
 
 

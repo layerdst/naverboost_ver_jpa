@@ -28,9 +28,12 @@ public class ProductImage {
     private EnumImageType imgType;
 
     @ManyToOne
-    @JoinColumn(name = "file_info_id")
-    private FileInfo fileInfo;
+    @JoinColumn(name="file_info_id")
+    private FileInfo fileInfos;
 
+
+
+    
 
 
 
