@@ -33,10 +33,10 @@ public class Product extends BaseTimeEntity {
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages = new ArrayList<>();
 
-    public void addCategory(Category category){
-        this.category = category;
-        category.getProducts().add(this);
-    }
+//    public void addCategory(Category category){
+//        this.category = category;
+//        category.getProducts().add(this);
+//    }
 
 
 
