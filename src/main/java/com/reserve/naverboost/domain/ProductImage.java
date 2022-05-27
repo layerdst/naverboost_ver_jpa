@@ -1,6 +1,8 @@
 package com.reserve.naverboost.domain;
 
 import com.reserve.naverboost.domain.enums.EnumImageType;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.type.ImageType;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class ProductImage {
 
     @Id
@@ -29,7 +33,14 @@ public class ProductImage {
 
     @ManyToOne
     @JoinColumn(name="file_info_id")
-    private FileInfo fileInfos;
+    private FileInfo fileInfo;
+
+    ProductImage createProductImage(EnumImageType imgType, FileInfo fileInfo){
+
+        return null;
+    }
+
+
 
 
 

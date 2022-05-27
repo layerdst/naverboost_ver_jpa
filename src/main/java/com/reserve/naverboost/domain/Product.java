@@ -1,12 +1,18 @@
 package com.reserve.naverboost.domain;
 
 import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.util.ProcessIdUtil;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@NoArgsConstructor
 public class Product extends BaseTimeEntity {
 
     @Id
@@ -25,6 +31,14 @@ public class Product extends BaseTimeEntity {
 
     private String event;
 
+    public Product(Category category, String content, String description, String event){
+        this.content = content;
+        this.description = description;
+        this.event = event;
+
+        addCategory(category);
+    }
+
     /**
      * product -> img 연관관계 주인 고민해볼것!
      *
@@ -33,10 +47,14 @@ public class Product extends BaseTimeEntity {
     @OneToMany(mappedBy = "product")
     private List<ProductImage> productImages = new ArrayList<>();
 
-//    public void addCategory(Category category){
-//        this.category = category;
-//        category.getProducts().add(this);
-//    }
+    public void addCategory(Category category){
+        this.category = category;
+        category.getProducts().add(this);
+    }
+
+    public static Product createProduct(Category category, String content, String description, String event){
+        return new Product(category, content, description, event);
+    }
 
 
 
