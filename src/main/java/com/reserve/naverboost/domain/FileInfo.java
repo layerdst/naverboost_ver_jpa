@@ -1,17 +1,25 @@
 package com.reserve.naverboost.domain;
 
+import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
 import com.reserve.naverboost.domain.enums.EnumContentType;
+import com.reserve.naverboost.domain.enums.EnumImageType;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class FileInfo {
+@NoArgsConstructor
+public class FileInfo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -29,7 +37,20 @@ public class FileInfo {
     private EnumContentType contentType;
 
     @Column(name="delete_flag")
+    @ColumnDefault("false")
     private boolean deleteFlag;
+
+    FileInfo(String fileName, String saveFileName, EnumContentType contentType){
+        this.fileName = fileName;
+        this.saveFileName = saveFileName;
+        this.contentType = contentType;
+    }
+
+    public static FileInfo createFileInfo(FileInfoDtoReq fileInfoDtoReq){
+        return new FileInfo(fileInfoDtoReq.getFileName(),
+                            fileInfoDtoReq.getSaveFileName(),
+                            fileInfoDtoReq.getContentType());
+    }
 
 
 

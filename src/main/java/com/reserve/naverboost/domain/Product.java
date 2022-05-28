@@ -44,7 +44,7 @@ public class Product extends BaseTimeEntity {
      *
      */
 //
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages = new ArrayList<>();
 
     public void addCategory(Category category){
