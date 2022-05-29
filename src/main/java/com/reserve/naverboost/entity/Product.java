@@ -1,10 +1,8 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
-import lombok.AllArgsConstructor;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.util.ProcessIdUtil;
 
 import javax.persistence.*;
 import java.util.ArrayList;

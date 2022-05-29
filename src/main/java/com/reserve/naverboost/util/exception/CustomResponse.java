@@ -1,4 +1,4 @@
-package com.reserve.naverboost.exception;
+package com.reserve.naverboost.util.exception;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,8 @@
-package com.reserve.naverboost.domain.enums;
+package com.reserve.naverboost.entity.enums;
 
 
-import com.reserve.naverboost.exception.CustomException;
-import com.reserve.naverboost.exception.CustomResponse;
-import com.reserve.naverboost.exception.CustomResponseStatus;
+import com.reserve.naverboost.util.exception.CustomException;
+import com.reserve.naverboost.util.exception.CustomResponseStatus;
 
 import java.util.Optional;
 

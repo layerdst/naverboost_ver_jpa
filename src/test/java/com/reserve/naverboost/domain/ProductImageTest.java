@@ -1,22 +1,30 @@
 package com.reserve.naverboost.domain;
 
+import com.reserve.naverboost.domain.category.CategoryRespository;
 import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
-import com.reserve.naverboost.domain.enums.EnumContentType;
-import com.reserve.naverboost.domain.enums.EnumImageType;
+import static com.reserve.naverboost.entity.ProductImage.createProductImages;
+
+import com.reserve.naverboost.domain.product.ProductRepository;
+import com.reserve.naverboost.entity.Category;
+import com.reserve.naverboost.entity.FileInfo;
+import com.reserve.naverboost.entity.Product;
+import com.reserve.naverboost.entity.ProductImage;
+import com.reserve.naverboost.entity.enums.EnumContentType;
+import com.reserve.naverboost.entity.enums.EnumImageType;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+
 import static com.reserve.naverboost.domain.dto.req.FileInfoDtoReq.createFileInfo;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -26,6 +34,9 @@ class ProductImageTest {
 
     @PersistenceContext
     EntityManager em;
+
+    @Autowired
+    ProductRepository productRepository;
 
 
 
@@ -123,8 +134,15 @@ class ProductImageTest {
             System.out.println(req.getFileName());
         }
 
-        ProductImage pro = new ProductImage();
-        pro.arrayProductImages(product, testFiles);
+
+
+        for(FileInfoDtoReq req : testFiles){
+            ProductImage productImages = createProductImages(product, req);
+            product.getProductImages().add(productImages);
+            em.persist(productImages);
+        }
+
+//        pro.arrayProductImages(product, testFiles);
 
         Product productTest = em.find(Product.class, product.getId());
         List<ProductImage> productImages = productTest.getProductImages();
@@ -132,11 +150,14 @@ class ProductImageTest {
         System.out.println(productImages.size());
 
         for(ProductImage productImage : productImages){
+            System.out.println(productImage.getFileInfo().getId());
             System.out.println(productImage.getId());
         }
-//
-//
-//
+
+
+
+        System.out.println(productRepository.findByCategoryId(1L).get(0).getProductImages());
+
 //        FileInfo info1 = new FileInfo();
 //        info1.createFileInfo()
 //        info1.setDeleteFlag(false);
@@ -159,9 +180,11 @@ class ProductImageTest {
     @Test
     public void scope() throws Exception{
         ProductImageTest test = new ProductImageTest();
+        ProductImageTest test2 = new ProductImageTest();
         System.out.println(test.v1);
 
         test.v1 = 30;
+        test2.v1= 40;
         System.out.println(test.v1);
 
     }

@@ -1,6 +1,6 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 
 import javax.persistence.*;
 

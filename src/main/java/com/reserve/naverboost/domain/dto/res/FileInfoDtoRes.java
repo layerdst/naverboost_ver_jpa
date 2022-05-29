@@ -1,6 +1,6 @@
 package com.reserve.naverboost.domain.dto.res;
 
-import com.reserve.naverboost.domain.enums.EnumImageType;
+import com.reserve.naverboost.entity.enums.EnumImageType;
 import lombok.Getter;
 
 @Getter

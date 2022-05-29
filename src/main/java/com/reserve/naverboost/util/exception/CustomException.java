@@ -1,9 +1,7 @@
-package com.reserve.naverboost.exception;
+package com.reserve.naverboost.util.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.util.function.Supplier;
 
 @AllArgsConstructor
 @Getter

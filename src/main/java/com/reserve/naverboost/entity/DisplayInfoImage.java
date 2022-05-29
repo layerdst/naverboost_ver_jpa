@@ -1,4 +1,4 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
 import javax.persistence.*;
 

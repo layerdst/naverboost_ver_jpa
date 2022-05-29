@@ -1,19 +1,14 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
-import com.reserve.naverboost.domain.enums.EnumContentType;
-import com.reserve.naverboost.domain.enums.EnumImageType;
-import lombok.Builder;
+import com.reserve.naverboost.entity.enums.EnumContentType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

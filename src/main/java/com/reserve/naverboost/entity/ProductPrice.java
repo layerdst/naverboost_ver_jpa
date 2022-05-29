@@ -1,6 +1,6 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.enums.EnumPriceType;
+import com.reserve.naverboost.entity.enums.EnumPriceType;
 
 import javax.persistence.*;
 

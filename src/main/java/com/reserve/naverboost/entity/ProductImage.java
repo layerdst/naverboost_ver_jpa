@@ -1,23 +1,24 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
-import com.reserve.naverboost.domain.enums.EnumImageType;
+import com.reserve.naverboost.entity.enums.EnumImageType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.type.ImageType;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.reserve.naverboost.domain.FileInfo.createFileInfo;
+import static com.reserve.naverboost.entity.FileInfo.createFileInfo;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ProductImage extends BaseTimeEntity {
 
     @Id
@@ -37,8 +38,8 @@ public class ProductImage extends BaseTimeEntity {
     @Enumerated(value=EnumType.STRING)
     private EnumImageType imgType;
 
-    @ManyToOne
-    @JoinColumn(name="file_info_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_info_id")
     private FileInfo fileInfo;
 
 

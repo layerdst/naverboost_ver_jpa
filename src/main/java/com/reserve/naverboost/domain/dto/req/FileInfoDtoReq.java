@@ -1,7 +1,7 @@
 package com.reserve.naverboost.domain.dto.req;
 
-import com.reserve.naverboost.domain.enums.EnumContentType;
-import com.reserve.naverboost.domain.enums.EnumImageType;
+import com.reserve.naverboost.entity.enums.EnumContentType;
+import com.reserve.naverboost.entity.enums.EnumImageType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

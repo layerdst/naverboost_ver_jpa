@@ -1,7 +1,8 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
-import com.reserve.naverboost.domain.auditing.BaseTimeEntity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category{
 
     @Id @GeneratedValue
@@ -22,4 +25,11 @@ public class Category{
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 
+    Category(String categoryName){
+        this.categoryName = categoryName;
+    }
+
+    public static Category createCategory(String categoryName){
+        return new Category(categoryName);
+    }
 }

@@ -1,7 +1,6 @@
-package com.reserve.naverboost.domain;
+package com.reserve.naverboost.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class DisplayInfo {

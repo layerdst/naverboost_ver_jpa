@@ -1,4 +1,4 @@
-package com.reserve.naverboost.domain.auditing;
+package com.reserve.naverboost.entity.auditing;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedBy;
