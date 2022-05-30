@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @ToString
@@ -17,10 +18,16 @@ public class CategoryRespository {
 
     private final EntityManager em;
 
-    public Category save(String categoryName){
-        Category category = Category.createCategory(categoryName);
-        em.persist(category);
-        return  category;
+    public void save(String categoryName){
+        em.persist(Category.createCategory(categoryName));
+    }
+
+    public Optional<Category> findById(Long id){
+        return Optional.ofNullable(em.find(Category.class, id));
+    }
+
+    public List<Category> categories(){
+        return em.createQuery("select c from Category c").getResultList();
     }
 
 

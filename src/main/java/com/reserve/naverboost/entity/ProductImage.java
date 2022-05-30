@@ -1,5 +1,7 @@
 package com.reserve.naverboost.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
 import com.reserve.naverboost.entity.enums.EnumImageType;
@@ -31,6 +33,8 @@ public class ProductImage extends BaseTimeEntity {
      * product -> img 연관관계 주인 고민해볼것!
      *
      */
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="product_id")
     private Product product;
@@ -38,6 +42,7 @@ public class ProductImage extends BaseTimeEntity {
     @Enumerated(value=EnumType.STRING)
     private EnumImageType imgType;
 
+    @JsonManagedReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_info_id")
     private FileInfo fileInfo;

@@ -1,7 +1,11 @@
 package com.reserve.naverboost.domain.product;
 
 
+import com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto;
+import com.reserve.naverboost.entity.Category;
+import com.reserve.naverboost.entity.FileInfo;
 import com.reserve.naverboost.entity.Product;
+import com.reserve.naverboost.entity.ProductImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +18,7 @@ public class ProductRepository {
 
     private final EntityManager em;
 
-    public void save(Product product) {
+    public void productSave(Product product) {
         em.persist(product);
     }
 
@@ -22,12 +26,33 @@ public class ProductRepository {
         return em.find(Product.class, id);
     }
 
-    public List<Product> findByCategoryId(Long id){
-        return em.createQuery("select p from Product p join p.category c where c.id = :id")
+    public void productImageSave(ProductImage image) {
+        em.persist(image);
+    }
+
+    public void fileInfoSave(FileInfo fileInfo){
+        em.persist(fileInfo);
+    }
+
+
+    public List<ProductsByCategoryQueryDto> findByCategoryId(Long id){
+        return em.createQuery("select new com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto" +
+                "(c.id, c.categoryName, p)" +
+                " from Product p left join p.category c where c.id = :id")
                 .setParameter("id", id)
                 .getResultList();
     }
-    
+
+    public List<ProductsByCategoryQueryDto> findByCategoryAll(){
+        return em.createQuery("select new com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto" +
+                "(c.id, c.categoryName, p)" +
+                " from Product p left join p.category c ")
+                .getResultList();
+    }
+
+    public List<Category> findAll(){
+        return em.createQuery("select c from Category c join c.products p").getResultList();
+    }
 
 
 }

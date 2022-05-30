@@ -1,5 +1,8 @@
 package com.reserve.naverboost.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +21,8 @@ public class Product extends BaseTimeEntity {
     @Column(name = "product_id")
     private Long id;
 
+
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;

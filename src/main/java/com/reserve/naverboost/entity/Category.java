@@ -1,5 +1,8 @@
 package com.reserve.naverboost.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category{
+public class Category extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name="category_id")
@@ -22,7 +25,8 @@ public class Category{
 
     private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @JsonBackReference
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     Category(String categoryName){

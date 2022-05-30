@@ -5,12 +5,17 @@ import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
 import static com.reserve.naverboost.entity.ProductImage.createProductImages;
 
 import com.reserve.naverboost.domain.product.ProductRepository;
+import com.reserve.naverboost.domain.product.ProductService;
 import com.reserve.naverboost.entity.Category;
 import com.reserve.naverboost.entity.FileInfo;
 import com.reserve.naverboost.entity.Product;
 import com.reserve.naverboost.entity.ProductImage;
 import com.reserve.naverboost.entity.enums.EnumContentType;
 import com.reserve.naverboost.entity.enums.EnumImageType;
+import com.reserve.naverboost.util.exception.CustomException;
+import com.reserve.naverboost.util.exception.CustomResponseStatus;
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +42,9 @@ class ProductImageTest {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    ProductService productService;
 
 
 
@@ -157,6 +165,12 @@ class ProductImageTest {
 
 
         System.out.println(productRepository.findByCategoryId(1L).get(0).getProductImages());
+
+
+        Assertions.assertThatThrownBy(
+                () -> productService.categorySearch(2L))
+                .isInstanceOf(CustomException.class);
+
 
 //        FileInfo info1 = new FileInfo();
 //        info1.createFileInfo()
