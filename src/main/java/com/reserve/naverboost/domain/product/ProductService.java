@@ -2,6 +2,7 @@ package com.reserve.naverboost.domain.product;
 
 import com.reserve.naverboost.domain.category.CategoryRespository;
 import com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto;
+import com.reserve.naverboost.domain.product.dto.ProductsDto;
 import com.reserve.naverboost.entity.Category;
 import com.reserve.naverboost.entity.Product;
 import com.reserve.naverboost.util.exception.CustomException;
@@ -38,8 +39,7 @@ public class ProductService {
     }
 
 
-
-
-
-
+    public List<ProductsDto> findDisplayInfoByCategoryId(Long id) {
+        return productRepository.findDisplayInfoByCategoryId(id);
+    }
 }

@@ -53,10 +53,6 @@ class ProductImageTest {
     @Rollback(value = false)
         public void test() throws Exception{
 
-
-
-
-
         Category category = new Category();
         category.setCategoryName("testCategory");
         em.persist(category);
@@ -129,12 +125,12 @@ class ProductImageTest {
 
         Product product = new Product(category,"testContent", "testDescription", "testEvent");
         em.persist(product);
-
         List<FileInfoDtoReq> testFiles = new ArrayList<>();
         for(int i = 0 ; i<3 ; i++){
             FileInfoDtoReq req = createFileInfo("test" + i, "/test" + i, EnumImageType.MA, EnumContentType.BMP);
             testFiles.add(req);
         }
+
 
         System.out.println("00000000000");
         System.out.println(testFiles.get(0).getFileName());
@@ -164,7 +160,7 @@ class ProductImageTest {
 
 
 
-        System.out.println(productRepository.findByCategoryId(1L).get(0).getProductImages());
+        System.out.println(productRepository.findByCategoryId(1L).get(0));
 
 
         Assertions.assertThatThrownBy(

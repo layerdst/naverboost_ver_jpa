@@ -1,9 +1,11 @@
 package com.reserve.naverboost.entity;
 
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
+
 import javax.persistence.*;
 
 @Entity
-public class ReservationUserCommentImg {
+public class ReservationUserCommentImg extends BaseTimeEntity {
 
     @Id
     @GeneratedValue

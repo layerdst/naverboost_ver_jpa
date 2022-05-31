@@ -2,6 +2,7 @@ package com.reserve.naverboost.domain.product;
 
 
 import com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto;
+import com.reserve.naverboost.domain.product.dto.ProductsDto;
 import com.reserve.naverboost.entity.Category;
 import com.reserve.naverboost.entity.FileInfo;
 import com.reserve.naverboost.entity.Product;
@@ -52,6 +53,22 @@ public class ProductRepository {
 
     public List<Category> findAll(){
         return em.createQuery("select c from Category c join c.products p").getResultList();
+    }
+
+
+    public List<ProductsDto> findDisplayInfoByCategoryId(Long id) {
+        return em.createQuery("select new com.reserve.naverboost.domain.product.dto.ProductsDto" +
+                "(d.id, d.placeName, p.content, p.description, p.id, fi.saveFileName ) " +
+                " from DisplayInfo d " +
+                " join d.product p " +
+                " join p.category c " +
+                " join p.productImages pi " +
+                " join pi.fileInfo fi " +
+                " where pi.imgType = \'MA\' " +
+                " and c.id = :id "
+                )
+                .setParameter("id", id)
+                .getResultList();
     }
 
 

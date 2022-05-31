@@ -1,9 +1,12 @@
 package com.reserve.naverboost.entity;
 
+import com.reserve.naverboost.domain.dto.req.FileInfoDtoReq;
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
+
 import javax.persistence.*;
 
 @Entity
-public class DisplayInfoImage {
+public class DisplayInfoImage extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -18,5 +21,12 @@ public class DisplayInfoImage {
     @JoinColumn(name="file_info_id")
     private FileInfo fileInfo;
 
+    public DisplayInfoImage(DisplayInfo displayInfo, FileInfoDtoReq req) {
+        this.displayInfo = displayInfo;
+        this.fileInfo = FileInfo.createFileInfo(req);
+    }
 
+    public DisplayInfoImage createDisplayInfoImg(DisplayInfo displayInfo, FileInfoDtoReq req){
+        return new DisplayInfoImage(displayInfo, req);
+    }
 }

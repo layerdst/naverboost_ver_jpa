@@ -1,9 +1,13 @@
 package com.reserve.naverboost.entity;
 
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
-public class DisplayInfo {
+public class DisplayInfo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -34,8 +38,18 @@ public class DisplayInfo {
     private String email;
 
 
+    DisplayInfo(){
 
+    }
 
-
-
+    public DisplayInfo(Product product, String openingHours, String placeName, String placeLot, String placeStreet, String tel, String homepage, String email) {
+        this.product = product;
+        this.openingHours = openingHours;
+        this.placeName = placeName;
+        this.placeLot = placeLot;
+        this.placeStreet = placeStreet;
+        this.tel = tel;
+        this.homepage = homepage;
+        this.email = email;
+    }
 }

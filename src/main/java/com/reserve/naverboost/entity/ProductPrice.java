@@ -1,11 +1,12 @@
 package com.reserve.naverboost.entity;
 
+import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import com.reserve.naverboost.entity.enums.EnumPriceType;
 
 import javax.persistence.*;
 
 @Entity
-public class ProductPrice {
+public class ProductPrice extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
