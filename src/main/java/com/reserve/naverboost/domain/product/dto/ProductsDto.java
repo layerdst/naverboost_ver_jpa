@@ -2,8 +2,10 @@ package com.reserve.naverboost.domain.product.dto;
 
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString()
 public class ProductsDto {
 
     private Long displayInfoId;

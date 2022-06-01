@@ -2,11 +2,15 @@ package com.reserve.naverboost.entity;
 
 import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
 public class DisplayInfo extends BaseTimeEntity {
 
     @Id
@@ -37,10 +41,9 @@ public class DisplayInfo extends BaseTimeEntity {
 
     private String email;
 
+    @OneToMany(mappedBy = "displayInfo")
+    private List<DisplayInfoImage> images = new ArrayList<>();
 
-    DisplayInfo(){
-
-    }
 
     public DisplayInfo(Product product, String openingHours, String placeName, String placeLot, String placeStreet, String tel, String homepage, String email) {
         this.product = product;
@@ -51,5 +54,9 @@ public class DisplayInfo extends BaseTimeEntity {
         this.tel = tel;
         this.homepage = homepage;
         this.email = email;
+    }
+
+    public DisplayInfo() {
+
     }
 }
