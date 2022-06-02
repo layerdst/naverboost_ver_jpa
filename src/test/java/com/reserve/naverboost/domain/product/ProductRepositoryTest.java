@@ -41,74 +41,74 @@ class ProductRepositoryTest {
         Category category1 = insertCategory("콘서트");
         Category category2 = insertCategory("라이브");
 
-
         Product product = insertProduct(category, "테스트1", "테스트1", "이벤트 내용");
+        Product product2 = insertProduct(category1, "테스트2", "테스트2", "이벤트 내용2");
+        Product product3 = insertProduct(category2, "테스트2", "테스트2", "이벤트 내용2");
 
         List<FileInfoDtoReq> testFiles = insertFileInfo("productImageFile", "/productImageFile");
+        List<FileInfoDtoReq> testFiles1 = insertFileInfo("productImageFile", "/productImageFile");
+        List<FileInfoDtoReq> testFiles2 = insertFileInfo("productImageFile", "/productImageFile");
+
+        insertProductImage(product, testFiles);
+        insertProductImage(product2, testFiles1);
+        insertProductImage(product3, testFiles2);
+
+        DisplayInfo di = insertDisplayInfo(product, "미술관", "미술관옆", "용산로");
+        DisplayInfo di2 = insertDisplayInfo(product2, "미술관2", "미술관2옆", "용산로2");
+        DisplayInfo di3 = insertDisplayInfo(product2, "미술관3", "미술관3옆", "용산로2");
+
+        DisplayInfo di4 = insertDisplayInfo(product3, "미술관4", "미술관4옆", "용산로2");
+
+        List<FileInfoDtoReq> testDiFileInfo = getFileInfoDtoReqs("displayfile", "/display/displayFile", EnumImageType.ETC, EnumContentType.BMP);
+        List<FileInfoDtoReq> testDiFileInfo2 = getFileInfoDtoReqs("displayfile", "/display/displayFile", EnumImageType.ETC, EnumContentType.BMP);
+        List<FileInfoDtoReq> testDiFileInfo3 = getFileInfoDtoReqs("displayfile", "/display/displayFile", EnumImageType.ETC, EnumContentType.BMP);
+        List<FileInfoDtoReq> testDiFileInfo4 = getFileInfoDtoReqs("displayfile", "/display/displayFile", EnumImageType.ETC, EnumContentType.BMP);
 
 
-        System.out.println("00000000000");
-        System.out.println(testFiles.get(0).getFileName());
-        for(FileInfoDtoReq req : testFiles){
-            System.out.println(req.getFileName());
+        insertDisplayInfoImg(di, testDiFileInfo);
+        insertDisplayInfoImg(di2, testDiFileInfo2);
+        insertDisplayInfoImg(di3, testDiFileInfo3);
+        insertDisplayInfoImg(di4, testDiFileInfo4);
+
+        List<ProductsDto> displayInfoByCategoryId = productRepository.findDisplayInfoByCategoryId(1L);
+
+    }
+
+    private void insertDisplayInfoImg(DisplayInfo di, List<FileInfoDtoReq> testDiFileInfo) {
+        for (FileInfoDtoReq req : testDiFileInfo) {
+            DisplayInfoImage displayInfoImg = DisplayInfoImage.createDisplayInfoImg(di, req);
+            di.getImages().add(displayInfoImg);
+            em.persist(displayInfoImg);
         }
+    }
 
+    private List<FileInfoDtoReq> getFileInfoDtoReqs(String fileName, String saveFileName , EnumImageType imageType, EnumContentType contentType) {
+        List<FileInfoDtoReq> testDiFileInfo = new ArrayList<>();
+        for(int i = 0 ; i<3 ; i++) {
+            FileInfoDtoReq req = createFileInfo(fileName + i, saveFileName + i, EnumImageType.ETC, EnumContentType.BMP);
+            testDiFileInfo.add(req);
+        }
+        return testDiFileInfo;
+    }
 
+    private DisplayInfo insertDisplayInfo(Product product, String 미술관, String 미술관옆, String 용산로) {
+        DisplayInfo di = new DisplayInfo(product, "9~12", 미술관, 미술관옆, 용산로, "01066655555", "na.com", "sdaf@ci.com");
+        product.getDisplayInfos().add(di);
+        em.persist(di);
+        return di;
+    }
 
+    private void insertProductImage(Product product, List<FileInfoDtoReq> testFiles) {
         for(FileInfoDtoReq req : testFiles){
             ProductImage productImages = createProductImages(product, req);
             product.getProductImages().add(productImages);
             em.persist(productImages);
         }
-
-//        pro.arrayProductImages(product, testFiles);
-
-        Product productTest = em.find(Product.class, product.getId());
-        List<ProductImage> productImages = productTest.getProductImages();
-        System.out.println("==========================");
-        System.out.println(productImages.size());
-
-        for(ProductImage productImage : productImages){
-            System.out.println(productImage.getFileInfo().getId());
-            System.out.println(productImage.getId());
-        }
-
-
-        DisplayInfo di = new DisplayInfo(product, "9~12", "미술관", "미술관옆", "용산로", "01066655555", "na.com", "sdaf@ci.com");
-        em.persist(di);
-
-        DisplayInfo di2 = new DisplayInfo(product, "9~12", "미술관2", "미술관2옆", "용산로2", "01066655555", "na.com", "sdaf@ci.com");
-        em.persist(di2);
-
-
-        List<FileInfoDtoReq> testDiFileInfo = new ArrayList<>();
-        for(int i = 0 ; i<3 ; i++) {
-            FileInfoDtoReq req = createFileInfo("displayFileInfo" + i, "/difi" + i, EnumImageType.ETC, EnumContentType.BMP);
-            testDiFileInfo.add(req);
-        }
-
-        for(FileInfoDtoReq req : testDiFileInfo){
-            DisplayInfoImage displayInfoImg = DisplayInfoImage.createDisplayInfoImg(di, req);
-            di.getImages().add(displayInfoImg);
-            em.persist(displayInfoImg);
-        }
-
-        for(FileInfoDtoReq req : testDiFileInfo){
-            DisplayInfoImage displayInfoImg = DisplayInfoImage.createDisplayInfoImg(di2, req);
-            di2.getImages().add(displayInfoImg);
-            em.persist(displayInfoImg);
-        }
-
-        List<ProductsDto> displayInfoByCategoryId = productRepository.findDisplayInfoByCategoryId(1L);
-        System.out.println(displayInfoByCategoryId.get(0).getDisplayInfoId());
-
-        //when
-
-        //then
     }
 
     private Product insertProduct(Category category, String content, String description, String event) {
         Product product = new Product(category,content, description, event);
+        category.getProducts().add(product);
         em.persist(product);
         return product;
     }

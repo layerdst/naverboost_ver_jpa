@@ -34,6 +34,10 @@ public class Product extends BaseTimeEntity {
 
     private String event;
 
+    @OneToMany(mappedBy = "product")
+    private List<DisplayInfo> displayInfos = new ArrayList<>();
+
+
     public Product(Category category, String content, String description, String event){
         this.content = content;
         this.description = description;
@@ -41,6 +45,8 @@ public class Product extends BaseTimeEntity {
 
         addCategory(category);
     }
+
+
 
     /**
      * product -> img 연관관계 주인 고민해볼것!
@@ -58,13 +64,5 @@ public class Product extends BaseTimeEntity {
     public static Product createProduct(Category category, String content, String description, String event){
         return new Product(category, content, description, event);
     }
-
-
-
-
-
-
-
-
 }
 

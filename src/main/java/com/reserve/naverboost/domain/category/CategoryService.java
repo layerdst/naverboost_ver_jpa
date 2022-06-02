@@ -1,5 +1,6 @@
 package com.reserve.naverboost.domain.category;
 
+import com.reserve.naverboost.domain.category.dto.CategoryListDto;
 import com.reserve.naverboost.entity.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +13,13 @@ public class CategoryService {
 
     private final CategoryRespository categoryRespository;
 
-
-    private List<Category> findAllCategory(){
+    public List<Category> findAllCategory(){
         return categoryRespository.categories();
     }
 
+    public List<CategoryListDto> categoryLists(){
+        return categoryRespository.categoryList();
+    }
 
 
 }

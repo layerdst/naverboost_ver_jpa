@@ -3,6 +3,7 @@ package com.reserve.naverboost.util.exception;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @JsonPropertyOrder({"statusCode", "message", "result"})
