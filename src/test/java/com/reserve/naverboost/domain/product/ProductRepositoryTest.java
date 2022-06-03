@@ -146,4 +146,32 @@ class ProductRepositoryTest {
 
         //then
     }
+
+    @Test
+    public void tdst() throws Exception{
+        //given
+        char c1 = 'a';
+        //when
+
+        //then
+    }
+
+
+    @Test
+    public void tdd1() throws Exception{
+        //given
+        double s = 100;
+        double t = 1;
+
+        while(s-t>0){
+            t=t*2;
+        }
+
+        System.out.println(t);
+
+
+        //when
+
+        //then
+    }
 }

@@ -33,11 +33,6 @@ public class ProductService {
         return productRepository.findByCategoryAll();
     }
 
-    public Category categorySearch(Long categoryId) throws CustomException{
-        return categoryRespository.findById(categoryId)
-                .orElseThrow(()->new CustomException(DB_ERR));
-    }
-
 
     public List<ProductsDto> findDisplayInfoByCategoryId(Long id) {
         return productRepository.findDisplayInfoByCategoryId(id);
