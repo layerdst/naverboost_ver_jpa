@@ -20,8 +20,8 @@ class CategoryRespositoryTest {
     @Autowired
     ProductService productService;
 
-    @Test
-    void categoryByIdProduct() throws CustomException {
-        System.out.println(productService.categorySearch(1L));
-    }
+//    @Test
+//    void categoryByIdProduct() throws CustomException {
+//        System.out.println(productService.categorySearch(1L));
+//    }
 }

@@ -6,6 +6,8 @@ import com.reserve.naverboost.domain.product.dto.ProductsDto;
 import com.reserve.naverboost.entity.*;
 import com.reserve.naverboost.entity.enums.EnumContentType;
 import com.reserve.naverboost.entity.enums.EnumImageType;
+import com.reserve.naverboost.util.exception.CustomException;
+import com.reserve.naverboost.util.exception.CustomResponseStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +18,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.reserve.naverboost.domain.dto.req.FileInfoDtoReq.createFileInfo;
 import static com.reserve.naverboost.entity.ProductImage.createProductImages;
 
+import static com.reserve.naverboost.entity.Promotion.createPromotion;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -72,8 +76,18 @@ class ProductRepositoryTest {
 
         List<ProductsDto> displayInfoByCategoryId = productRepository.findDisplayInfoByCategoryId(1L);
 
+//        ProductImage productImage1 = product.getProductImages().stream()
+//                .filter(o -> o.getImgType().equals(EnumImageType.MA))
+//                .findFirst()
+//                .orElseThrow(() -> new CustomException(CustomResponseStatus.DB_ERR));
+        insertPromotion(product);
     }
 
+    private void insertPromotion(Product product) {
+        Promotion pr = createPromotion(product);
+        em.persist(pr);
+    }
+    
     private void insertDisplayInfoImg(DisplayInfo di, List<FileInfoDtoReq> testDiFileInfo) {
         for (FileInfoDtoReq req : testDiFileInfo) {
             DisplayInfoImage displayInfoImg = DisplayInfoImage.createDisplayInfoImg(di, req);

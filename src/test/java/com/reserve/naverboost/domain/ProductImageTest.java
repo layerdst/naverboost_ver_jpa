@@ -163,9 +163,9 @@ class ProductImageTest {
         System.out.println(productRepository.findByCategoryId(1L).get(0));
 
 
-        Assertions.assertThatThrownBy(
-                () -> productService.categorySearch(2L))
-                .isInstanceOf(CustomException.class);
+//        Assertions.assertThatThrownBy(
+//                () -> productService.categorySearch(2L))
+//                .isInstanceOf(CustomException.class);
 
 
 //        FileInfo info1 = new FileInfo();
