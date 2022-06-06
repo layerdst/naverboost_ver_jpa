@@ -22,4 +22,29 @@ public class ReservationInfoPrice  extends BaseTimeEntity {
 
     private int count;
 
+    public ReservationInfoPrice(){
+
+    }
+
+    public void addProductPrice(ProductPrice productPrice) {
+        this.productPrice = productPrice;
+        productPrice.getReservationInfoPrices().add(this);
+    }
+
+    public void addReservationInfo(ReservationInfo reservationInfo){
+        this.reservationInfo = reservationInfo;
+        reservationInfo.getReservationInfoPrice().add(this);
+    }
+
+    public ReservationInfoPrice(ReservationInfo reservationInfo, ProductPrice productPrice, int count) {
+        this.count = count;
+        addReservationInfo(reservationInfo);
+        addProductPrice(productPrice);
+    }
+
+    public static ReservationInfoPrice createReservationInfoPrice(ReservationInfo reservationInfo, ProductPrice productPrice, int count){
+        return new ReservationInfoPrice(reservationInfo, productPrice, count);
+    }
+
+
 }

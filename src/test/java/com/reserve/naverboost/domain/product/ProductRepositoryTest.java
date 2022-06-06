@@ -6,6 +6,7 @@ import com.reserve.naverboost.domain.product.dto.ProductsDto;
 import com.reserve.naverboost.entity.*;
 import com.reserve.naverboost.entity.enums.EnumContentType;
 import com.reserve.naverboost.entity.enums.EnumImageType;
+import com.reserve.naverboost.entity.enums.EnumPriceType;
 import com.reserve.naverboost.util.exception.CustomException;
 import com.reserve.naverboost.util.exception.CustomResponseStatus;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,12 +83,40 @@ class ProductRepositoryTest {
 //                .findFirst()
 //                .orElseThrow(() -> new CustomException(CustomResponseStatus.DB_ERR));
         insertPromotion(product);
+
+        ReservationInfo reservationInfo = insertReservationInfo(product, di, "이름", "연락처", "이메일", LocalDateTime.now(), true);
+        ProductPrice productPrice = insertProductPrice(product, EnumPriceType.A, 20000, 0.25F);
+        insertReservationInfoPrice(reservationInfo, productPrice, 6);
+
+
     }
+
+    private ReservationInfoPrice insertReservationInfoPrice(ReservationInfo reservationInfo, ProductPrice productPrice, int count) {
+        ReservationInfoPrice reservationInfoPrice = ReservationInfoPrice.createReservationInfoPrice(reservationInfo, productPrice, count);
+        em.persist(reservationInfoPrice);
+        return reservationInfoPrice;
+    }
+
+
+    private ProductPrice insertProductPrice(Product product, EnumPriceType a, int i, float v) {
+        ProductPrice productPrice = ProductPrice.createProductPrice(product, a, i, v);
+        em.persist(productPrice);
+        return productPrice;
+    }
+
+
+    private ReservationInfo insertReservationInfo(Product product, DisplayInfo di, String name, String tel, String email, LocalDateTime currentTime, boolean cancelFlag) {
+        ReservationInfo reservationInfo = ReservationInfo.createReservationInfo(product, di, name, tel, email, currentTime, cancelFlag);
+        em.persist(reservationInfo);
+        return reservationInfo;
+    }
+
 
     private void insertPromotion(Product product) {
         Promotion pr = createPromotion(product);
         em.persist(pr);
     }
+
     
     private void insertDisplayInfoImg(DisplayInfo di, List<FileInfoDtoReq> testDiFileInfo) {
         for (FileInfoDtoReq req : testDiFileInfo) {
