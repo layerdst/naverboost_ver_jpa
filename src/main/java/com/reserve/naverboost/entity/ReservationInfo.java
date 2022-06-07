@@ -4,8 +4,10 @@ import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -26,7 +28,7 @@ public class ReservationInfo extends BaseTimeEntity {
     private DisplayInfo displayInfo;
 
     @OneToMany(mappedBy = "reservationInfo")
-    private List<ReservationInfoPrice> reservationInfoPrice = new ArrayList<>();
+    private List<ReservationInfoPrice> reservationInfoPrices = new ArrayList<>();
 
     @Column(name="reservation_name")
     private String reservationName;
@@ -43,6 +45,10 @@ public class ReservationInfo extends BaseTimeEntity {
     @Column(name="cancel_flag")
     private boolean cancelFlag;
 
+    public int totalPrice(){
+        return reservationInfoPrices.stream()
+                .mapToInt(n -> (int)(n.getProductPrice().getPrice() * (1 - n.getProductPrice().getDiscountRate()))).sum();
+    }
 
     public ReservationInfo(){
     }

@@ -1,10 +1,12 @@
 package com.reserve.naverboost.entity;
 
 import com.reserve.naverboost.entity.auditing.BaseTimeEntity;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class ReservationInfoPrice  extends BaseTimeEntity {
 
     @Id
@@ -33,7 +35,7 @@ public class ReservationInfoPrice  extends BaseTimeEntity {
 
     public void addReservationInfo(ReservationInfo reservationInfo){
         this.reservationInfo = reservationInfo;
-        reservationInfo.getReservationInfoPrice().add(this);
+        reservationInfo.getReservationInfoPrices().add(this);
     }
 
     public ReservationInfoPrice(ReservationInfo reservationInfo, ProductPrice productPrice, int count) {
