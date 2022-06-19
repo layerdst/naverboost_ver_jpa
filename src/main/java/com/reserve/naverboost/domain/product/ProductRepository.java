@@ -3,14 +3,12 @@ package com.reserve.naverboost.domain.product;
 
 import com.reserve.naverboost.domain.product.dto.ProductsByCategoryQueryDto;
 import com.reserve.naverboost.domain.product.dto.ProductsDto;
-import com.reserve.naverboost.entity.Category;
-import com.reserve.naverboost.entity.FileInfo;
-import com.reserve.naverboost.entity.Product;
-import com.reserve.naverboost.entity.ProductImage;
+import com.reserve.naverboost.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -71,5 +69,12 @@ public class ProductRepository {
                 .getResultList();
     }
 
+
+    public List<ProductPrice> findProductPrices(long[] productPriceIds) {
+
+        return em.createQuery("select p from ProductPrice p where p.id IN :productPriceIds")
+                .setParameter("productPriceIds", productPriceIds)
+                .getResultList();
+    }
 
 }

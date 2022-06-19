@@ -2,10 +2,14 @@ package com.reserve.naverboost.domain.reservation;
 
 import com.reserve.naverboost.domain.reservation.dto.ReservationDisplayInfoQueryDto;
 import com.reserve.naverboost.domain.reservation.dto.ReservationInfoQueryDto;
+import com.reserve.naverboost.entity.DisplayInfo;
+import com.reserve.naverboost.entity.Product;
+import com.reserve.naverboost.entity.ReservationInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -60,6 +64,14 @@ public class ReservationRepository {
                 "join p.category c " +
                 "where d.id = :id").setParameter("id", arr).getResultList();
     }
+
+    public ReservationInfo createReservation(Product pr, DisplayInfo di, String reservationName, String reservationTel, String reservationEmail, LocalDateTime reservationTime, boolean b) {
+        ReservationInfo reservationInfo = ReservationInfo.createReservationInfo(pr, di, reservationName, reservationTel, reservationEmail, reservationTime, true);
+        em.persist(reservationInfo);
+        return reservationInfo;
+    }
+
+
 
 
 
